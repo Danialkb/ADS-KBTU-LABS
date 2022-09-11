@@ -12,8 +12,6 @@ int foundYoung(stack <int> st, int key){
     return value;
 }
 int main() {
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
     int n;
     cin >> n;
     queue<int> q;
