@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-bool comparartor(pair<int, int> &p1, pair<int, int> &p2){
+bool comparator(pair<int, int> &p1, pair<int, int> &p2){
     if(p1.second == p2.second)return p1.first > p2.first;
     return p1.second > p2.second;
 }
@@ -13,7 +13,7 @@ int main() {
         m[a]++;
     }
     vector<pair<int, int> > v(m.begin(), m.end());
-    sort(v.begin(), v.end(), comparartor);
+    sort(v.begin(), v.end(), comparator);
     for(int i = 0; i < v.size(); i++){
         if(v[i].second == v[0].second){
             cout << v[i].first << ' ';

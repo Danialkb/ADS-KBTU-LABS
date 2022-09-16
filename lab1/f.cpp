@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 bool isprime(int &num){
     if(num == 2)return true;
     for(int i = 2; i * i <= num; i++){
@@ -20,7 +19,5 @@ int main() {
             return 0;
         }
     }
-
-
     return 0;
 }

@@ -13,11 +13,14 @@ struct Node{
     }
 };
 struct LinkedList{
-    Node *head;
+    Node* head;
     Node *tail;
+    int size;
+    int val;
     LinkedList(){
-        this->head = nullptr;
-        this->tail = nullptr;
+        this->size = 0;
+        this->head = NULL;
+        this->tail = NULL;
     }
     void push_back(int val){
         Node *tmp = new Node(val);
@@ -25,9 +28,25 @@ struct LinkedList{
             this->head = tmp;
             this->tail = tmp;
         }
-        else {
+        else{
             this->tail->next = tmp;
             this->tail = tmp;
+        }
+        this->size++;
+    }
+    void insertAt(int val, int i){
+        if(i == 0){
+            Node *tmp = new Node(val);
+            tmp->next = this->head;
+            this->head = tmp;
+        }
+        else if(i == this->size)this->push_back(val);
+        else{
+            Node *tmp = new Node(val);
+            Node *cur = this->head;
+            for(int j = 0; j < i - 1; j++)cur = cur->next;
+            tmp->next = cur->next;
+            cur->next = tmp;
         }
     }
     void print(){
@@ -41,12 +60,14 @@ struct LinkedList{
 };
 int main() {
     LinkedList *ll = new LinkedList();
-    int n, k, a;
-    cin >> n >> k;
+    int n, a, val, pos;
+    cin >> n;
     while(n--){
         cin >> a;
         ll->push_back(a);
     }
+    cin >> val >> pos;
+    ll->insertAt(val, pos);
     ll->print();
     return 0;
 }
