@@ -44,13 +44,6 @@ Node* replace(Node* head, int &p1, int &p2){
     Node *tmp = new Node(cur->val);
     head = remove(head, p1);
     head = insert(head, tmp, p2);
-    // Node *cur = head;
-    // Node *cur2 = head;
-    // int tmp;
-    // for(int i = 0; i < p1; i++)cur = cur->next;
-    // for(int i = 0; i < p2; i++)cur2 = cur2->next;
-    // swap(cur->val, cur2->val);
-    // return head;
     return head;
 }
  

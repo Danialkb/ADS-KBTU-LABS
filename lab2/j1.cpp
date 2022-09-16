@@ -13,14 +13,22 @@ struct Node{
     }
 };
 struct LinkedList{
+    int size;
     Node *head;
     Node *tail;
     LinkedList(){
+        this->size = 0;
         this->head = NULL;
         this->tail = NULL;
     }
 
     void push_back(int val){
+        Node *cur = this->head;
+        while(cur){
+            if(cur->val == val)return;
+            cur = cur->next;
+        }
+        this->size++;
         Node* tmp = new Node(val);
         if(!this->head){
             this->head = tmp;
@@ -32,17 +40,6 @@ struct LinkedList{
         }
     }
 
-    void sortBubble(){
-        Node *cur = this->head;
-        while(cur){
-            Node *tmp = cur->next;
-            while(tmp){
-                if(tmp->val < cur->val)swap(tmp->val, cur->val);
-                tmp = tmp->next;
-            }
-            cur = cur->next;
-        }
-    }
     void print(){
         Node *cur = this->head;
         while(cur){
@@ -57,19 +54,17 @@ int main() {
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
     LinkedList *ll = new LinkedList();
-    LinkedList *tmp = new LinkedList();
-    int a;
-    while(cin >> a){
+    int n, a;
+    cin >> n;
+    while(n--){
+        cin >> a;
         ll->push_back(a);
-        tmp->push_back(a);
     }
-    ll->sortBubble();
-    int cnt = 0;
-    while(ll->head){
-        if(ll->head->val != tmp->head->val)cnt++;
+    int sum = (ll->size * (ll->size + 1)) / 2;
+    for(int i = 0; i < ll->size; i++){
+        sum -= ll->head->val;
         ll->head = ll->head->next;
-        tmp->head = tmp->head->next;
     }
-    cout << cnt << endl;
+    cout << sum << endl;
     return 0;
 }
