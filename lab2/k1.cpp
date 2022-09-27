@@ -37,15 +37,6 @@ struct LinkedList{
             this->tail = tmp;
         }
     }
-    // bool founded(char val){
-    //     Node *cur = this->head;
-    //     while(cur){
-    //         if(cur->val == val){
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
     bool empty(){
         if(this->head != NULL)return false;
         return true;
