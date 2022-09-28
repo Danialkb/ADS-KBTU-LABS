@@ -1,9 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-bool comparator(pair<int, int> &p1, pair<int, int> &p2){
-    if(p1.second == p2.second)return p1.first > p2.first;
-    return p1.second > p2.second;
-}
 
 struct Node{
     int val;
@@ -50,18 +46,7 @@ struct LinkedList{
 
         }
     }
-    void mode(){
-        Node *cur = this->head;
-        vector<pair<int, int> > res;
-        while(cur){
-            res.push_back(make_pair(cur->val, cur->cnt));
-            cur = cur->next;
-        }
-        sort(res.begin(), res.end(), comparator);
-        for(int i = 0; i < res.size(); i++){
-            if(res[i].second == res[0].second)cout << res[i].first << ' ';
-        }
-    }
+    
 };
 int main() {
     LinkedList *ll = new LinkedList();
@@ -71,7 +56,7 @@ int main() {
         cin >> a;
         ll->push_back(a);
     }
-    ll->mode();
+    
     
     return 0;
 }

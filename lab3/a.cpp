@@ -3,6 +3,7 @@ using namespace std;
 
 vector<vector<int> > v;
 vector<vector<int> > res;
+
 void binSearch(int &target){
     for(int i = 0; i < v.size(); i++){
         int l = 0;

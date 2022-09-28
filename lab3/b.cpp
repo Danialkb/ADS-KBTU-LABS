@@ -2,25 +2,20 @@
 using namespace std;
 
 int main() {
-    int n, k, a;
+    int n, k;
     cin >> n >> k;
-    vector<int> v;
-    int sum = 0;
-
+    int ar[n];
+    unsigned long long r;
     for(int i = 0; i < n; i++) {
-        cin >>a;
-        sum += a;
-        v.push_back(a);
+        cin >> ar[i];
+        r += ar[i];
     }
 
-    int l = 1;
-    int r = sum;
-
-    while(l <= r) {
-        int mid = (l + r) / 2;
-
+    unsigned long long l = 0, mid;
+    while(l <= r){
+        mid = l + (r - l) / 2;
+        
     }
-
 
     return 0;
 }
