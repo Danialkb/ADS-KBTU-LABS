@@ -14,8 +14,8 @@ int binSearch(vector<int> &arr, int &target){
         if(target>arr[mid] && target<arr[mid+1]){
             return mid;
         }
-		if (arr[mid] == target )
-		{
+
+		if (arr[mid] == target ){
             for(int i=mid+1;i<arr.size();i++){
                 if(arr[i] != target){
                     return i-1;
