@@ -1,23 +1,40 @@
 #include <bits/stdc++.h>
 using namespace std;
+vector<int> v;
+int check(int predict, int h){
+    for(int i = 0; i < v.size(); i++){
+        if(v[i] % predict == 0)h -= (v[i] / predict);
+        else h -= (floor(v[i] / predict) + 1);
+    }
+    return h;
+}
+
 int main() {
-    int n, h, a;
+    int n, h, max = -1e9;
     cin >> n >> h;
-   if(newl1 < v[0] && newr1 < v[0] || newl1 > v[v.size() - 1])notfirst = true;
-    if(newl2 < v[0] && newr2 < v[0] || newl2 > v[v.size() - 1])notsecond = true;
-    if((newl1 == newr1 && newl1 < v[0] && newl2 == newr2 && newl2 < v[0]))continue;
-    if(newl2 >= newl1 && newr2 <= newr1) {
-        if(!notfirst)cnt = binSearch(r1, "") - binSearch(newl1, "left") + 1;
-        cout << binSearch(newl1, "left") << " " << binSearch(newr1, "")<< " " << cnt << endl;
+
+    int x;
+    for (int i = 0; i < n; i++) {
+        cin >> x;
+        v.push_back(x);
+        if(x > max)max = x;
     }
-    else if(newl1 >= newl2 && newr1 <= newr2){
-        if(!notsecond)cnt = binSearch(newr2, "") - binSearch(newl2, "left") + 1;
-        cout << binSearch(newl2, "left") << " " << binSearch(newr2, "")<< " " << cnt << endl;
+
+    int l = 1, r = max;
+    while(l <= r){
+        int mid = l + (r - l) / 2;
+        if(check(mid, h) ==0 && check(mid - 1, h) != 0){
+            cout << mid;
+            break;
+        }
+        else if((check(mid,h) > 0) && (check(mid - 1, h) < 0)){
+            cout << mid << endl;
+            break;
+        }
+        else if(check(mid,h) < 0)l = mid + 1;
+        else r = mid - 1;
     }
-    else{
-        if(!notfirst)cnt += binSearch(newr1, "") - binSearch(newl1, "left") + 1;
-        if(!notsecond && newl2 <= newr2)cnt += binSearch(r2, "") - binSearch(newl2, "left") + 1;
-        cout << binSearch(newl1, "left") << " " << binSearch(newr1, "") << " "<< binSearch(newl2, "left") << " " << binSearch(newr2, "") << " " << cnt << endl;
-    } 
+
+
     return 0;
 }

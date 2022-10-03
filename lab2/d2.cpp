@@ -46,6 +46,36 @@ struct LinkedList{
 
         }
     }
+
+    void sort(){
+        Node *cur = this->head;
+        while(cur){
+            Node *tmp = cur->next;
+            while(tmp){
+                if(cur->cnt < tmp->cnt){
+                    swap(cur->cnt, tmp->cnt);
+                    swap(cur->val, tmp->val);
+                }
+                if(cur->cnt == tmp->cnt){
+                    if(tmp->val > cur->val){
+                        swap(cur->val, tmp->val);
+                    }
+                }
+                tmp = tmp->next;
+            }
+            cur = cur->next;
+        }
+    }
+
+    void print() {
+        Node* cur = head;
+        while (cur != NULL) {
+            cout << cur->val << " " << cur->cnt << endl;
+            cur = cur->next;
+    }
+    cout << endl;
+}
+
     
 };
 int main() {
@@ -57,6 +87,14 @@ int main() {
         ll->push_back(a);
     }
     
+    ll->sort();
+    // ll->print();
+    int modeNum = ll->head->cnt;
+
+    while(ll->head && ll->head->cnt == modeNum ){
+        cout << ll->head->val << ' ';
+        ll->head = ll->head->next;
+    }
     
     return 0;
 }
