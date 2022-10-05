@@ -8,8 +8,10 @@ struct Node{
 
 struct BinSearchTree{
     Node* root;
+    int cnt;
     BinSearchTree() {
         root = nullptr;
+        cnt = 0;
     }
 private:
     Node* add(int x, Node *root){
@@ -23,24 +25,38 @@ private:
         else root->right = add(x, root->right);
         return root;
     }
+    int getSize(Node *cur){
+        if(cur == nullptr)return 0;
+        cnt++;
+        getSize(cur->left);
+        getSize(cur->right);
+        return cnt;
+    }
+    Node* find(int x){
+        Node *cur = root;
+        while(cur->val != x){
+            if(cur->val > x){
+                cur = cur->left;
+            }
+            else cur = cur->right;
+        }
+        return cur;
+    }
+    void print(Node *cur){
+        if(cur == nullptr)return;
+        cout << cur->val << ' ';
+        print(cur->left);
+        print(cur->right);
+    }
 public:
     void add(int x){
         this->root = add(x, root);
     }
-    bool isPeak(string s){
-        Node *cur = this->root;
-        for(int i = 0; i < s.size(); i++){
-            if(s[i] == 'L'){
-                cur = cur->left;
-                if(!cur)return false;
-            }
-            else{
-                cur = cur->right;
-                if(!cur)return false;
-            }
-        }
-        return true;
+    
+    void print(int x){
+        return this->print(find(x));
     }
+
 };
     
 
@@ -49,18 +65,17 @@ int main() {
     BinSearchTree bst;
 
     int n, k, x;
-    cin >> n >> k;
+    cin >> n;
     string s;
     while(n--){
         cin >> x;
         bst.add(x);
     }
-
-    while(k--){
-        cin >> s;
-        bst.isPeak(s) ? cout << "YES\n" : cout << "NO\n";
-    }
     
+    cin >> x;
+
+    bst.print(x);
+    cout << endl;
     
     
     

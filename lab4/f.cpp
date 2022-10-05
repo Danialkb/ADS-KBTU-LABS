@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
+int cnt;
+
 struct Node{
     int val;
     Node* left;
@@ -23,46 +25,37 @@ private:
         else root->right = add(x, root->right);
         return root;
     }
+
+    void _triangles(Node* cur){
+        if(!cur)return;
+        if(cur->left && cur->right)cnt++;
+        _triangles(cur->left);
+        _triangles(cur->right);
+    }
+
 public:
     void add(int x){
         this->root = add(x, root);
     }
-    bool isPeak(string s){
-        Node *cur = this->root;
-        for(int i = 0; i < s.size(); i++){
-            if(s[i] == 'L'){
-                cur = cur->left;
-                if(!cur)return false;
-            }
-            else{
-                cur = cur->right;
-                if(!cur)return false;
-            }
-        }
-        return true;
-    }
-};
     
+    void triangles(){
+        _triangles(this->root);
+    }
 
+};
 
 int main() {
-    BinSearchTree bst;
-
-    int n, k, x;
-    cin >> n >> k;
-    string s;
+    int n;
+    cin >> n;
+    BinSearchTree tree;
     while(n--){
+        int x;
         cin >> x;
-        bst.add(x);
+        tree.add(x);
     }
 
-    while(k--){
-        cin >> s;
-        bst.isPeak(s) ? cout << "YES\n" : cout << "NO\n";
-    }
-    
-    
-    
+    tree.triangles();
+    cout << cnt << endl;
     
     return 0;
 }

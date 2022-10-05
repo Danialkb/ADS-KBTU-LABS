@@ -1,37 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
-typedef unsigned long long ull;
-vector<int> v;
-bool myHelper(int predict, int h){
+bool myHelper(vector<long long> &v, long long predict, int h){
     for(int i = 0; i < v.size(); i++){
         if(v[i] % predict == 0)h -= (v[i] / predict);
         else h -= (floor(v[i] / predict) + 1);
-        if(h < 0)return false;
     }
-    return h >= 0; 
+    return h >= 0;
 }
 
 int main() {
-    int n, h, a, max = -1e9;
-
+    long long n, h, a, max = INT32_MIN;
+    vector<long long> v;
     cin >> n >> h;
     for(int i = 0; i < n; i++) {
         cin >> a;
         v.push_back(a);
         if(a > max)max = a;
     }
-    int l = 1, r = max + 1, res = -1, mid;
-    
-    while(l <= r){
-        mid = l + (r - l) / 2;
-        if(myHelper(mid, h)){
-            res = mid;
-            r = mid - 1;
+    long long l = 0, r = max + 1000, res = 1;
+    long long mid;
+    while(l + 1 < r){
+        mid = (r + l) / 2;
+        if(myHelper(v,mid, h)){
+            r = mid;
         }
-        else l = mid + 1;
+        else l = mid;
     }
 
-    cout << res;
+    cout << r << endl;
 
     return 0;
 }

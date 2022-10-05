@@ -19,7 +19,7 @@ int main() {
         v.push_back(x);
         if(x > max)max = x;
     }
-
+    // cout << check(4, h);
     int l = 1, r = max;
     while(l <= r){
         int mid = l + (r - l) / 2;
