@@ -34,8 +34,9 @@ private:
     void _sumLevels(vector<int> &v, int level, Node *cur){
         if(!cur)return;
         v[level] += cur->val;
-        _sumLevels(v, level+1, cur->left);
-        _sumLevels(v, level+1, cur->right);
+        _sumLevels(v, level + 1, cur->left);
+        cout << cur->val << ' ' << level << endl;
+        _sumLevels(v, level + 1, cur->right);
     }
 
 public:
@@ -50,7 +51,6 @@ public:
     int height(){
         return _height(this->root);
     }
-
 };
 
 int main() {
@@ -65,10 +65,10 @@ int main() {
     res.resize(tree.height());
 
     tree.sumLevels(res);
-    cout << res.size() << endl;
-    for(int i = 0; i < res.size(); i++){
-        cout << res[i] << " ";
-    }
+    // cout << res.size() << endl;
+    // for(int i = 0; i < res.size(); i++){
+    //     cout << res[i] << " ";
+    // }
     cout << endl;
     return 0;
 }

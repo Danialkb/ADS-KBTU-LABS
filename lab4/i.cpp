@@ -45,8 +45,14 @@ private:
     }
     Node *_delete(int x, Node *cur){
         if(!cur)return nullptr;
-        if(x == cur->val){
-            if(cur->multiplicity != 1){
+        if(x < cur->val){
+            cur->left = _delete(x, cur->left);
+        }
+        else if (x > cur->val){
+            cur->right = _delete(x, cur->right);
+        }
+        else{
+            if(cur->multiplicity != 0){
                 cur->multiplicity--;
                 return cur;
             }
@@ -70,14 +76,6 @@ private:
                     cur->left = _delete(cur->val, cur->left);
                 }
             }
-        }
-        else if(x < cur->val){
-            cur->left = _delete(x, cur->left);
-            return cur;
-        }
-        else if (x > cur->val){
-            cur->right = _delete(x, cur->right);
-            return cur;
         }
         return cur;
     }
