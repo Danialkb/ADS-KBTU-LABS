@@ -1,92 +1,59 @@
 #include <bits/stdc++.h>
 using namespace std;
+
 struct Node{
-    int value;
+    int val;
     Node *left;
     Node *right;
+	Node(){
+		this->val = 0;
+        this->left = this->right = nullptr;
+	}
     Node(int val){
-        this->value = val;
+        this->val = val;
         this->left = this->right = nullptr;
     }
 };
 
-struct BinaryTree {
-	Node* root;
-	BinaryTree() {
-		root = nullptr;
-	}
-private:
-	void preorder(Node* node) {
-		if (!node) return;
-		cout << node->value << " ";
-		this->preorder(node->left);
-		this->preorder(node->right);
-	}
-    Node *find(int target, Node* node) {
-        if (!node) return nullptr;
-        if (node->value == target) return node;
-        else if (node->value < target)node->right = find(target, node->right);
-        else node->left = find(target, node->left);
-        return node;
-    }
-	void insert(int value, Node* cur) {
-		if (!cur)return;
-		else {
-			if (!cur->left)
-				this->insert(value, cur->left);
-			else if (!cur->right)
-				this->insert(value, cur->right);
 
-		}
-	}
-	Node* findBlankNode() {
-		queue<Node*> q;
-		q.push(this->root);
-		while (q.front()->left && q.front()->right) {
-			if (q.front()->left) q.push(q.front()->left);
-			if (q.front()->right) q.push(q.front()->right);
-			q.pop();
-		}
-		return q.front();
-	}
-public:
 
-	void preorder() {
-		this->preorder(this->root);
-    }
-	void insert(int value) {
-		if (!this->root) {
-			this->root = new Node(value);
+Node *insert(Node *node, int x,  int y, int z){
+	queue<Node*> q;
+	q.push(node);
+	while(!q.empty()){
+		Node *tmp = q.front();
+		q.pop();
+		if(q.front()->val == x){
+			if(z == 0){
+				tmp->left = new Node(y);
+				return node;
+			}
+			else {
+				tmp->right = new Node(y);
+				return node;
+			}
 		}
-		else {
-			Node* cur = this->findBlankNode();
-			if (!cur->left)
-				cur->left = new Node(value);
-			else if (!cur->right)
-				cur->right = new Node(value);
-		}
+		if(tmp->left)q.push(tmp->left);
+		if(tmp->right)q.push(tmp->right);
 	}
-	void remove(int value) {
-		queue<Node*> q;
-		q.push(this->root);
-		while (q.front()->left->value != value && q.front()->right->value != value) {
-			if (q.front()->left) q.push(q.front()->left);
-			if (q.front()->right) q.push(q.front()->right);
-			q.pop();
-		}
-		Node* cur = q.front();
-		if (cur->left->value == value)
-			cur->left = nullptr;
-		else
-			cur->right = nullptr;
-	}
-};
+	return node;
+}
 
+void preorder(Node *node){
+	if(!node)return;
+    cout << node->val << " ";
+	preorder(node->left);
+    preorder(node->right);
+}
 int main() {
-    BinaryTree tree;
     int n, x, y, z;
     cin >> n;
-    cin >> x >> y >> z;
-    
+    Node *root = new Node(1);
+
+	for(int i = 0; i < n; i++){
+		cin >> x >> y >> z;
+        root = insert(root, x, y, z);
+	}
+	preorder(root);
     return 0;
 }
