@@ -41,6 +41,24 @@ public:
         }
         return true;
     }
+    string _road(Node *cur, string operation)
+    {
+        for(int i=0;i<operation.size();i++)
+        {
+            if(operation[i]=='L')
+            {
+                if(cur->left)cur = cur->left;
+                else return "NO";
+            }
+            else
+            {
+                if(cur->right)cur = cur->right;
+                else return "NO";
+            }
+            if(!cur)return "NO";
+        }
+        return "YES";
+    }
 };
     
 
@@ -58,7 +76,8 @@ int main() {
 
     while(k--){
         cin >> s;
-        bst.isPeak(s) ? cout << "YES\n" : cout << "NO\n";
+        cout << bst._road(bst.root, s) << endl;
+        // bst.isPeak(s) ? cout << "YES\n" : cout << "NO\n";
     }
     
     
