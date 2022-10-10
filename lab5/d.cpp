@@ -21,7 +21,7 @@ struct MinHeap {
 			i = parent(i);
 		}
 	}
-	ull extactMin() {
+	ull extractMin() {
 		if (this->heap.size() == 0) return INT_MAX;
 		if (this->heap.size() == 1) {
 			ull root = this->heap[0];
@@ -51,21 +51,26 @@ struct MinHeap {
 
 int main() {
 	MinHeap* heap1 = new MinHeap();
-	ull n, x;
-    cin >> n;
+	int n, m, x;
+    cin >> n >> m;
+    int cnt = 0;
     while(n--){
         cin >> x;
         heap1->insert(x);
     }
 
-    ull res = 0;
     while(heap1->heap.size() > 1){
-        ull tmp = heap1->extactMin();
-        ull tmp1 = heap1->extactMin();
-		ull summ = tmp + tmp1;
-        res += summ;
-        heap1->insert(summ);
+        ull d1 = heap1->extractMin();
+        if(d1 >= m){
+            cout << cnt << endl;
+            return 0;
+        }
+        ull d2 = heap1->extractMin();
+        ull dnew = d1 + (d2 * 2);
+        heap1->insert(dnew);
+        cnt++;
     }
-    cout << res;
+    if(heap1->extractMin() >= m)cout << cnt << endl;
+    else cout << -1 << endl;
 	return 0;
 }

@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef unsigned long long ull;
-struct MinHeap {
+struct MaxHeap {
 	vector<ull> heap;
 
 	int parent(int i) {
@@ -16,12 +16,12 @@ struct MinHeap {
 	void insert(ull value) {
 		this->heap.push_back(value);
 		int i = this->heap.size() - 1;
-		while (i != 0 && this->heap[parent(i)] > this->heap[i]) {
+		while (i != 0 && this->heap[parent(i)] < this->heap[i]) {
 			swap(this->heap[parent(i)], this->heap[i]);
 			i = parent(i);
 		}
 	}
-	ull extactMin() {
+	ull extactMax() {
 		if (this->heap.size() == 0) return INT_MAX;
 		if (this->heap.size() == 1) {
 			ull root = this->heap[0];
@@ -38,33 +38,38 @@ struct MinHeap {
 		int l = this->left(i);
 		int r = this->right(i);
 		int smallest = i;
-		if (l < this->heap.size() && this->heap[l] < this->heap[i])
+		if (l < this->heap.size() && this->heap[l] > this->heap[i])
 			smallest = l;
-		if (r < this->heap.size() && this->heap[r] < this->heap[smallest])
+		if (r < this->heap.size() && this->heap[r] > this->heap[smallest])
 			smallest = r;
 		if (smallest != i) {
 			swap(this->heap[i], this->heap[smallest]);
 			this->heapify(smallest);
 		}
 	}
+    void print(){
+        for(int i = 0; i < this->heap.size(); i++) {
+            cout << this->heap[i] << ' ';
+        }
+        cout << endl;
+    }
 };
 
 int main() {
-	MinHeap* heap1 = new MinHeap();
-	ull n, x;
-    cin >> n;
+	MaxHeap heap1;
+	ull n, x, x1;
+    cin >> n >> x;
     while(n--){
-        cin >> x;
-        heap1->insert(x);
+        cin >> x1;
+        heap1.insert(x1);
     }
-
     ull res = 0;
-    while(heap1->heap.size() > 1){
-        ull tmp = heap1->extactMin();
-        ull tmp1 = heap1->extactMin();
-		ull summ = tmp + tmp1;
-        res += summ;
-        heap1->insert(summ);
+    while(x--){
+        int tmp = heap1.extactMax();
+        res += tmp;
+        tmp--;
+        if(tmp > 0)heap1.insert(tmp);
+        
     }
     cout << res;
 	return 0;
