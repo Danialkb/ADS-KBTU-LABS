@@ -11,8 +11,7 @@ struct Node{
 };
 
 Node* makeBalanced(vector<int> &arr, int start, int end){
-            if (start > end)
-            return NULL;
+            if (start > end)return NULL;
 
             int mid = (start + end)/2;
             Node *root = new Node(arr[mid]);

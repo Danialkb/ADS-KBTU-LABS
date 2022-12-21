@@ -18,36 +18,36 @@ struct Node{
 
 
 Node *insert(Node *node, int x,  int y, int z){
-	// if(!node)return nullptr;
-	// if(node->val == x){
-	// 	if(z == 0){
-	// 		node->left = new Node(y);
-	// 	}
-	// 	else node->right = new Node(y);
-	// 	return node;
-	// }
-	// insert(node->left, x, y, z);
-	// insert(node->right, x, y, z);
-	// return node;
-	queue<Node*> q;
-	q.push(node);
-	while(!q.empty()){
-		Node *tmp = q.front();
-		q.pop();
-		if(tmp->val == x){
-			if(z == 0){
-				tmp->left = new Node(y);
-				return node;
-			}
-			else {
-				tmp->right = new Node(y);
-				return node;
-			}
+	if(!node)return nullptr;
+	if(node->val == x){
+		if(z == 0){
+			node->left = new Node(y);
 		}
-		if(tmp->left)q.push(tmp->left);
-		if(tmp->right)q.push(tmp->right);
+		else node->right = new Node(y);
+		return node;
 	}
+	insert(node->left, x, y, z);
+	insert(node->right, x, y, z);
 	return node;
+	// queue<Node*> q;
+	// q.push(node);
+	// while(!q.empty()){
+	// 	Node *tmp = q.front();
+	// 	q.pop();
+	// 	if(tmp->val == x){
+	// 		if(z == 0){
+	// 			tmp->left = new Node(y);
+	// 			return node;
+	// 		}
+	// 		else {
+	// 			tmp->right = new Node(y);
+	// 			return node;
+	// 		}
+	// 	}
+	// 	if(tmp->left)q.push(tmp->left);
+	// 	if(tmp->right)q.push(tmp->right);
+	// }
+	// return node;
 }
 
 int getWidth(Node *node){
@@ -88,7 +88,7 @@ int main() {
 		cin >> x >> y >> z;
         root = insert(root, x, y, z);
 	}
-
-	cout << getWidth(root) << endl;
+	preorder(root);
+	// cout << getWidth(root) << endl;
     return 0;
 }

@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+long long sum = 0;
 struct Node{
     int val;
     Node *left;
@@ -24,42 +24,35 @@ private:
         else cur->right = _add(x, cur->right);
         return cur;
     }
-
-    int _height(Node *cur, int &d){
-        if(!cur)return 0;
-        int left = _height(cur->left, d);
-        cout << left << endl;
-        int right = _height(cur->right, d);
-        d = max(d, left + right + 1);
-        // cout << left + right + 1 << endl;
-        return left + 1;
-        // return max(left, right) + 1;
+    void _solve(Node* cur, int level){
+        if(!cur)return;
+        sum += (cur->val - level);
+        _solve(cur->left, level + 1);
+        _solve(cur->right, level + 1);
     }
-    
 public:
     void add(int x){
         this->root = _add(x, root);
     }
 
-    int getDiameter(){
-        int d = 0;
-        _height(this->root, d);
-        return d;
+    void solve(){
+        _solve(root, 0);
     }
 
 };
 
-
 int main() {
-    int n, x;
+    BinSearchTree b;
+    int n;
     cin >> n;
-    BinSearchTree tree;
     while(n--){
+        int x;
         cin >> x;
-        tree.add(x);
+        b.add(x);
     }
-    
-    cout << tree.getDiameter() << endl;
+
+    b.solve();
+    cout << sum << endl;
 
     return 0;
 }
